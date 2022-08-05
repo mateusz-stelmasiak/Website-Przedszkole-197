@@ -1,0 +1,419 @@
+
+.contactContainer{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    width:100%;
+}
+.marginTop{
+    flex:100%;
+    height: 20px;
+    width: 100%;
+}
+.marginSmall{
+    flex:100%;
+    height: 10px;
+    width: 100%;
+}
+.mapAndInfoContainer{
+    height: 450px;
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    border-color: #8b9396;
+    border-top-style: solid;
+    border-right-style: none;
+    border-bottom-style: solid;
+    border-left-style: none;
+    border-radius: 2px;
+}
+.contactInfo{
+    flex:19%;
+    max-width: 19%;
+    max-height: 96%;
+    text-align: left;
+    background-color: #242b32 ;
+    color: white;
+    padding-left: 3%;
+    padding-right: 3%;
+    padding-top: 2%;
+    padding-bottom:2%;
+    font-family: Segoeui;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.contactIconAndText{
+    flex:100%;
+    width: 100%;
+    overflow: hidden;
+    display: flex;
+    flex-wrap: wrap;
+}
+.contactIcon{
+    font-size:2.7vw;
+    width: 20%;
+    flex:20%
+}
+.contactText{
+    width: 73%;
+    flex:73%;
+    margin-left: 7%;
+    display: flex;
+    align-items: center;
+}
+
+.contactInfo a{
+    background-color: white;
+    color:  #242b32;
+    border: 0;
+    width: 100%;
+    height: 40px;
+    font-size: 18px;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+}
+.contactInfo a:hover{
+    background-color: #d4733e;
+}
+
+.mapContainer{
+    flex:75%;
+    max-width: 75%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #d4dfe3;
+}
+.mapInside{
+    width: 95%;
+    height: 90%;
+    position: relative;
+}
+.mapOverlay{
+    background-color: #1c2541;
+    width: 5%;
+    position: absolute;
+    left:0px;
+    height: 100%;
+    z-index: 1;
+}
+#map {
+    width: 95%;
+    height: 100%;
+    margin-left: 5%;
+}
+#mail{
+    display: none;
+}
+
+.openHours{
+    width: 100%;
+}
+.contactFormContainer{
+    height: 400px;
+    width: 100%;
+    flex:100%;
+    display: flex;
+    flex-wrap: wrap;
+    border-color: #8b9396;
+    border-right-style: none;
+    border-bottom-style: solid;
+    border-left-style: none;
+    border-radius: 2px;
+    align-items: center;
+    justify-content: center;
+
+}
+
+.contactIconLabel{
+    color: white;
+    font-size: 25px;
+    font-family: Segoeui;
+    margin-left: 10px;
+    display: none;
+}
+
+
+.contactFormHeader{
+    height: 20%;
+    font-family: Segoeui;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-top: 1%;
+    padding-bottom: 1%;
+    flex-wrap: wrap;
+    text-align: center;
+    width: 100%;
+}
+
+.contactFormTitle{
+    flex:100%;
+    width:100%;
+    font-size: 25px;
+    color:black;
+    font-weight: bold;
+}
+.contactFormSubTitle{
+    flex:100%;
+    width:100%;
+    font-size: 15px;
+    color: #4e4e4e;
+}
+
+.contactFormFormContainer{
+    height: 60%;
+    font-family: Segoeui;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    width: 78%;
+    background-color: #d4dfe3;
+    padding:1.5%;
+    font-family: Segoeui;
+}
+
+
+
+
+
+#contactSuccess{
+    width: 100%;
+    height: 4vh;
+    background-color: #45a049;
+    display: none;
+    text-align: center;
+    padding-top: 1vh;
+    color: white;
+}
+#contactFailure{
+    width: 100%;
+    height:  4vh;
+    background-color: #e33e02;
+    display: none;
+    text-align: center;
+    padding-top: 1vh;
+    color: white;
+}
+.contactFormFormContainer form{
+    flex: 100%;
+    display: flex;
+    flex-wrap:wrap;
+    width: 100%;
+    height: 100%;
+}
+
+.inputs{
+    flex:20%;
+    max-width: 20%;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: center;
+
+}
+.contactMargin{
+    flex: 3%;
+    max-width: 3%;
+}
+
+#submitFull {
+    background-color: #c2632f;
+    max-width: 100%;
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    flex:100%;
+    color: black;
+    text-align: center;
+}
+#submitSmall {
+    background-color: #c2632f;
+    max-width: 100%;
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    flex:100%;
+    color: black;
+    text-align: center;
+    display: none;
+    max-height: 10%;
+}
+
+#submitSmall:hover {
+    background-color: #d45a3e;
+}
+#submitFull:hover {
+    background-color: #d45a3e;
+}
+
+
+#firstname{
+    flex:90%;
+    max-width: 90%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    resize: vertical;
+    height: 17%;
+    text-align: center;
+}
+#lastname{
+    max-width: 90%;
+    flex:90%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    resize: vertical;
+    height: 17%;
+    text-align: center;
+}
+
+#subject{
+    max-width: 90%;
+    flex:90%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    margin-top: 15%;
+    resize: vertical;
+    height: 17%;
+    text-align: center;
+}
+
+
+.contactFormFormContainer textarea{
+    flex: 77%;
+    max-width: 77%;
+    height: 100%;
+    max-height: 100%;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    background-color: #242b32;
+    padding: 10px;
+    color: white;
+}
+@media only screen and (max-width: 700px) {
+    .openHours{
+    width: 30%;
+}
+    .contactFormFormContainer textarea{
+        flex: 100%;
+        max-width: 100%;
+    }
+    .contactMargin{
+        flex: 100%;
+        max-width: 100%;
+        height: 2%;
+    }
+    .inputs{
+        flex:100%;
+        max-width: 100%;
+        max-height: 25%;
+    }
+    #lastname{
+        height: 30px;
+    }
+    #firstname{
+        height: 30px;
+    }
+    #subject{
+        margin-top: 3%;
+        resize: vertical;
+        height: 30px;
+    }
+    .contactFormContainer{
+        height: 600px;
+    }
+    .contactFormFormContainer{
+        height: 70%;
+    }
+    .contactFormHeader{
+        height: 5%;
+    }
+    .contactFormFormContainer textarea{
+        max-height: 50%;
+    }
+    #submitFull{
+        display: none;
+    }
+    #submitSmall{
+        display: block;
+    }
+}
+
+
+@media only screen and (max-width: 1180px) {
+        .openHours{
+    width: 30%;
+}
+    .mapAndInfoContainer{
+        height: 600px;
+    }
+    .mapContainer{
+        flex:100%;
+        max-width: 100%;
+        height: 70%;
+    }
+    .contactInfo{
+        flex: 100%;
+        max-width: 100%;
+        height: 30%;
+    }
+    .mapOverlay{
+        display: none;
+    }
+    .contactIconAndText{
+        align-items: center;
+        justify-content: center;
+        flex:70%;
+        width: 70%;
+    }
+    .contactIcon{
+        font-size: 35px;
+        width: 100%;
+        flex: 100%;
+        text-align: center;
+    }
+    .contactText{
+        align-items: center;
+        text-align: center;
+        justify-content: center;
+        flex: 100%;
+        margin-left: 0px;
+    }
+    .contactIconLabel{
+        display: inline;
+    }
+    .contactInfo a{
+      display:none;
+    }
+    #mail{
+        display: flex;
+    }
+    .mapAndInfoContainer{
+        height: 100%;
+    }
+    .mapContainer{
+        height: 300px;
+    }
+    #map{
+        width: 100%;
+        margin-left: 0px;
+    }
+}

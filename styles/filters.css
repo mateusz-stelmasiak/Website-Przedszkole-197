@@ -1,0 +1,124 @@
+.filters{
+    width:100%;
+    height: 65px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1;
+}
+.filterText{
+    color: white;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+.showFilters{
+    background-color: #40465a;
+    height: 100%;
+    width: 15%;
+    display: flex;
+    align-items: center;
+}
+.showFilters:hover{
+    background-color: #d4733e;
+}
+.filterIcon{
+    background-image: url("../graphics/filtry.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+    height: 90%;
+    width: 70%;
+    float:left;
+}
+.showButton{
+    background-image: url("../graphics/arrowRight.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: right;
+    height: 30%;
+    width: 20%;
+    float:right;
+}
+
+
+.filtersContainer{
+    display: none;
+    height: inherit;
+    width:25%;
+    background-color: #b6b6b6;
+    align-items: center;
+    padding-right: 12px ;
+    font-family: Segoeui;
+}
+.filterButton{
+    background-color: #40465a;
+    height: 100%;
+    color: white;
+    width: 10vw;
+    border:0px;
+
+}
+
+.fdropdown {
+    margin-left: 10px;
+    height:55%;
+    float: left;
+    overflow: hidden;
+    weight: inherit;
+}
+
+.fdropdown:hover .filterButton{
+    background-color: #d45a3e;
+}
+
+.fdropdown-content {
+    position: absolute;
+    font-size: 12pt;
+    padding-left: 10px;
+    padding-right: 10px;
+    display: none;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+.fdropdown-content input {
+    float: none;
+    color: black;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.fdropdown:hover .fdropdown-content {
+    display: block;
+}
+
+@media only screen and (max-width: 1200px) {
+    .filterIcon{
+        background-image: url("../graphics/filtrySmall.png");
+        background-position: center;
+        width: 55%;
+    }
+}
+
+@media only screen and (max-width: 700px) {
+    .filterIcon{
+        background-image: url("../graphics/filtry.png");
+    }
+    .filters{
+        height: 55px;
+    }
+    .showFilters{
+        width: 35%;
+    }
+    .filtersContainer{
+        width: 65%;
+    }
+    .filterButton{
+        width: 30vw;
+    }
+}
+
+.spaceAfterFilters{
+    width: 100%;
+    height: 50px;
+}

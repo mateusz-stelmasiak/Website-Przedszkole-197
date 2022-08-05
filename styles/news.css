@@ -1,0 +1,147 @@
+.newsCover{
+	 font-family: Segoeui;
+	overflow: hidden;
+	height: 10vw;
+	width:10vw;
+	background-color: #242b32;
+	background-size: 100% 100%;
+	background-repeat:no-repeat;
+}
+.insideCover{
+	position: relative;
+	height: 85%;
+	width: 85%;
+	margin:7.5%;
+
+
+	background-color: rgba(255,255,255,0.5);
+}
+
+.newsDay{
+	color: white;
+	top:0px;
+	font-size: 300%;
+	height: 80%;
+	display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.newsMonth{
+	color: white;
+	bottom: 0px;
+	height: 10%;
+	padding-top: 5%;
+	padding-bottom:5%;
+	display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #53b8c4; 
+}
+
+.newsContainer{
+	font-family: Segoeui;
+	text-decoration: none;
+	color: black;
+}
+
+.newsTitle{
+	font-size:25px;
+	flex:100%;
+}
+
+.newsDate{
+	flex:100%;
+}
+
+.newsContent{
+	flex:100%;
+	margin-top: 1.5%;
+	font-style: italic;
+	color: #242424;
+}
+
+.newsFooter{
+	width: 100%;
+	height: 30px;
+	position: relative;
+	margin-top: 100px;
+	margin-bottom: 10px;
+}
+
+.newsStopper{
+	height: 10%;
+	background-color: #c2632f;
+	width: 100%;
+	position: absolute;
+	left: 0px;
+	bottom: -12px;
+}
+
+
+#backButton {
+	position: absolute;
+	left: 0px;
+    background-color: #c2632f;
+    max-width: 100%;
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    color: white;
+    text-align: center;
+    width: 30%;
+    font-family: Segoeui;
+
+    font-weight: bold;
+}
+
+#backButton:hover {
+    background-color: #d45a3e;
+}
+
+.newsItem{
+	display: flex;
+}
+.newsItem:hover{
+	background-color:rgba(209, 228, 227,0.2);
+}
+
+#readFurtherButton {
+    background-color: #c2632f;
+    max-width: 100%;
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    color: white;
+    text-align: center;
+    width: 100%;
+    font-family: Segoeui;
+    display: none;
+    margin-top: 10px;
+}
+#readFurtherButton:hover {
+    background-color: #d45a3e;
+}
+
+.newsCont{
+	 text-align: left;
+	 width:85%;
+	 vertical-align: top;
+	 display: table-cell;'
+}
+
+@media only screen and (max-width: 1100px) {
+ 	.coverContainer{
+ 		display: none;
+ 	}
+ 	.newsCont{
+ 		width:100%;
+ 	}
+ 	#readFurtherButton {
+ 	    display: block;	
+ 	}
+}

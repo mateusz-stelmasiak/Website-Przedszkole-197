@@ -1,0 +1,44 @@
+.bgClouds{
+    position: absolute;
+    z-index: -1;
+    width: 100vw;
+    height: 100%;
+}
+.cloud {
+    position: absolute;
+    height: 60vw;
+    overflow: hidden;
+    background-image: url('../graphics/bgChmura1.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    width: 30vw;
+}
+.cloudS {
+    position: absolute;
+    height: 15vw;
+    overflow: hidden;
+    background-image: url('../graphics/bgChmura2.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    width: 7vw;
+}
+
+#cloud1{
+    top: -50px;
+    left: -50px;
+}
+#cloud2{
+    top: 15vw;
+    left: 50px;
+}
+#cloud3{
+    top: 9vw;
+    right: 20px;
+}
+
+@media only screen and (max-width: 700px) {
+    .cloud {
+        height: 60vw;
+        width: 40vw;
+    }
+}

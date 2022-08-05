@@ -1,0 +1,50 @@
+header {
+	overflow: hidden;
+}
+.topImgContainer{
+	width:100vw;
+	height:30vw;
+	max-height:30vw;
+	overflow-y: hidden;
+	overflow-x: hidden;
+	position: relative;
+}
+
+.logo{
+	position: absolute;
+	top:-2vw;
+	overflow-y: hidden;
+	overflow-x: hidden;
+	background-position: top;
+	background-image: url("../graphics/chmuraZNazwa.png");
+	background-size: contain;
+	background-repeat: no-repeat;
+	width:inherit;
+	height:inherit;
+	z-index: 1;
+}
+
+.decorations{
+	position: absolute;
+	float:bottom;
+	background-image: url("../graphics/dekoracje.png");
+	width:inherit;
+	height:inherit;
+	background-size: contain;
+	background-repeat: no-repeat;
+	z-index: 0;
+}
+
+@media only screen and (max-width: 700px) {
+	.topImgContainer{
+		height:55vh;
+		max-height:50vw;
+	}
+	.logo {
+		background-image: url("../graphics/chmuraZNazwaSmall.png");
+	}
+	.decorations {
+		background-image: url("../graphics/dekoracjesmall.png");
+	}
+
+}

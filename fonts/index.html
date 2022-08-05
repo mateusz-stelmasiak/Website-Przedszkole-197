@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/html">
+<head>
+<meta charset="utf-8">
+<html lang="pl-PL">
+<title>Przedszkole 197</title>
+<meta name="viewport" content="width=device-width, height=device-height, initial-scale=1">
+<link rel="shortcut icon" href="tabicon.ico"/>
+
+<!--Include code with database authorisation-->
+<?php include 'db.php'; ?>
+
+<!--StyleSheets-->
+<link href="styles/modalImage.css" rel="stylesheet" type="text/css">
+<link href="styles/navbar.css" rel="stylesheet" type="text/css">
+<link href="styles/topGraphic.css" rel="stylesheet" type="text/css">
+<link href="styles/bottomGraphic.css" rel="stylesheet" type="text/css">
+<link href="styles/filters.css" rel="stylesheet" type="text/css">
+<link href="styles/gallery.css" rel="stylesheet" type="text/css">
+<link href="styles/kontakt.css" rel="stylesheet" type="text/css">
+<link href="styles/bgClouds.css" rel="stylesheet" type="text/css">
+<link href="styles/news.css" rel="stylesheet" type="text/css">
+<link href="styles/fonts.css" rel="stylesheet" >
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" >
+
+<style>
+	a{
+	text-decoration: none;
+	}
+	body {
+		margin: 0;
+		background-image: linear-gradient(to bottom, #9cd1f1, #d1e4e3);
+		overflow-x:hidden;
+		-ms-overflow-style: none;  /* hide scrollbar in IE and Edge */
+		scrollbar-width: none;  /* hide scrollbar in Firefox */
+	}
+	/* Hide scrollbar for Chrome, Safari and Opera */
+	@-webkit-scrollbar {
+		display: none;
+	}
+
+	.contentContainer{
+		z-index:0;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		width: 100%;
+		overflow: hide;
+	}
+	.container {
+		z-index:0;
+		width: 80vw;
+		min-height: 100vh;
+		background:white;
+		text-align:justify;
+		border-radius: 0px 0px 40px;
+	}
+	.insideContainer{
+		width:94%;
+		height:100%;
+		margin-right: 3%;
+		margin-left: 3%;
+		padding-top: 3%;
+		padding-bottom: 3%;
+	}
+	.pageTitle{
+		font-family: hobo;
+		font-size:40px;
+		width: 100%;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+
+
+
+	 #aktualnosci{
+		 display: block;
+	}
+	 #kontakt{
+		display: none;
+	}
+	 #galeria{
+		display: none;
+	}
+	#album{
+		display: none;
+	}
+
+	@media only screen and (max-width: 700px) {
+		.container {
+			width: 100vw;
+		}
+		.insideContainer{
+			width:90%;
+			height:100%;
+			margin-right: 0px;
+			margin-left: 0px;
+			padding-left: 5%;
+			padding-right: 5%;
+			overflow: hidden;
+		}
+	}
+</style>
+
+</head>
+<header >
+	<!--Grafika na górze-->
+	<div class="topImgContainer">
+		<div class="logo"></div>
+		<div class="decorations"></div>
+
+	</div>
+</header>
+
+<body>
+	<!--Chmury w tle-->
+	<div class="bgClouds">
+		<div class="cloud" id="cloud1"></div>
+		<div class="cloudS" id="cloud2"></div>
+		<div class="cloudS" id="cloud3"></div>
+	</div>
+
+
+
+	<!--Pasek nawigacji-->
+	<div class="navbar">
+		<div class="dropdown">
+		<button id='defaultTabButton' onClick="changeTab('aktualnosci',this)" class="dropbtn tabSwitch">
+			Aktualności
+		</button>
+		</div>
+			  <div class="dropdown">
+				<button id='allGalery' onClick="changeTab('galeria',this)" class="dropbtn tabSwitch">
+					Galeria
+				</button>
+				<div class="dropdown-content">
+					<?php
+					$YEARS = askSQL('SELECT DISTINCT RokAkademicki FROM Album');
+					if($YEARS != false)
+					{
+						while($year = mysqli_fetch_array($YEARS))
+						{
+							echo "<a onClick='changeTab(\"galeria\",this)' id='".$year['RokAkademicki']."'>Rok ".$year['RokAkademicki']."</a>";
+						}
+					}
+					?>
+
+				</div>
+			  </div>
+		<div class="dropdown">
+		<button onClick="changeTab('kontakt',this)" class="dropbtn tabSwitch">
+			Kontakt
+		</button>
+		</div>
+	</div>
+
+
+	<div class="contentContainer">
+
+
+
+		<!--AKTUALNOŚCI-->
+		<div id="aktualnosci" class="section">
+			<div class="container">
+				<div class="insideContainer">
+					<div class="pageTitle">Aktualności</div>
+					<hr>
+					<?php
+					$NEWS = askSQL("SELECT Id_Akt,z.UrlZdj, TytulAkt, SUBSTRING(TrescAkt,1,200) as TrescAkt,DataAkt
+														FROM Aktualnosc a LEFT JOIN Zdjecie z ON a.Id_Min= z.Id_Zdj
+														ORDER BY a.DataAkt DESC
+														");
+					if($NEWS != false)
+					{
+					echo " <table style='width:100%;'><tr style='height:30px'></tr>";
+					while($news = mysqli_fetch_array($NEWS))
+					{
+						echo "<tr>";
+						if($news['UrlZdj']!=NULL){
+							echo "
+								<td class='coverContainer' style='text-align: center;width:20%'>
+									<div class='news' id='news".$news['Id_Akt']."'>
+									<a href='/?newsID=".$news['Id_Akt']."'>
+										<div class='newsCover'>
+											<img class='newsMiniature' src='".$news['UrlZdj']."' style='width=inherit;height:inherit;object-fit:cover;'>
+										</div>
+									</a>
+								</td>
+								";	
+						}
+						else{
+							$day= substr($news['DataAkt'],8,2);
+							$monthNum= substr($news['DataAkt'],5,2);
+							$months=array(
+								    "01" => "Styczeń",
+								    "02" => "Luty",
+								    "03" => "Marzec",
+								    "04" => "Kwiecień",
+								    "05" => "Maj",
+								    "06" => "Czerwiec",
+								    "07" => "Lipiec",
+								    "08" => "Sierpień",
+								    "09" => "Wrzesień",
+								    "10" => "Październik",
+								    "11" => "Listopad",
+								    "12" => "Grudzień",
+								);
+							$monthString=$months[$monthNum];
+
+							
+							echo "
+								<td class='coverContainer' style='text-align: center;width:20%'>
+									<div class='news' id='news".$news['Id_Akt']."'>
+									<a href='/?newsID=".$news['Id_Akt']."'>
+										<div class='newsCover'>
+											<div class='insideCover'>
+												<div class='newsDay'>".$day."</div>
+												<div class='newsMonth'>".$monthString."</div>
+											</div>
+										</div>
+									</a>
+								</td>
+								";	
+						}
+						echo "
+								<td style='text-align: left;width:80%;vertical-align: top;display: table-cell;'>
+									<a href='/?newsID=".$news['Id_Akt']."'>
+										<div class='newsContainer'>
+											
+											<div class='newsTitle'>".$news['TytulAkt']."</div>
+											<div class='newsDate'>".$news['DataAkt']."</div>
+											<div class='newsContent'>".$news['TrescAkt']."</div>
+										</div>
+									
+									</div>
+									</a>
+								</td>
+						";
+						echo "</tr><tr style='height:20px'></tr>";
+					}
+					echo "</table>";
+					}
+
+					?>
+					
+						
+					
+				</div>
+			</div>
+		</div>
+
+		<!--GALERIA-->
+		<div id="galeria"  class="section">
+			<div class="container">
+				<div class="filters">
+					<div class="showFilters" onClick="toogleFilters()">
+						<div class="filterIcon"></div>
+						<div class="showButton" ></div>
+					</div>
+
+					<div class="filtersContainer">
+						<!--LATA DO WYBORU-->
+						<div class="fdropdown">
+							<button class="filterButton">Lata</button>
+							<div class="fdropdown-content">
+								<label><input type="checkbox" id='yAllBox' onClick="toogleYear('all')" checked> Wszystkie</label><br>
+								<!--LOAD FROM DATABASE-->
+								<?php
+								$Y= askSQL('SELECT DISTINCT RokAkademicki FROM Album');
+								if($Y != false)
+								{
+									while($yea = mysqli_fetch_array($Y))
+									{
+									 echo "<label><input id='".$yea['RokAkademicki']."Box' onClick='toogleYear(\"".$yea['RokAkademicki']."\")' class='yFilterBox' type='checkbox'>".$yea['RokAkademicki']."</label><br>";
+								}
+								}
+								?>
+							</div>
+						</div>
+
+						<!--GRUPY DO WYBORU-->
+						<div class="fdropdown">
+							<button class="filterButton">Grupy
+							</button>
+							<div class="fdropdown-content">
+								<label><input type="checkbox" id="gAllBox" onClick="toogleGroup('all')" checked>Wszystkie</label><br>
+								<!--LOAD FROM DATABASE-->
+								<?php
+								$SELECT = askSQL('SElECT Id_Grp,NazwaGrp FROM Grupa');
+								if($SELECT != false)
+								{
+									while($row = mysqli_fetch_array($SELECT))
+									{
+										echo "<label><input class='gFilterBox' type='checkbox' id='".$row['Id_Grp']."Box' onClick='toogleGroup(\"".$row['Id_Grp']."\")')>".$row['NazwaGrp']."</label><br>";
+								}
+								}
+								else
+								{
+								echo 'error';
+								}
+								?>
+							</div>
+						</div>
+					</div>
+				</div>
+				     
+				       <div class='spaceAfterFilters'></div>
+						<!--Rok Akademicki/ W nim albumy-->
+						<!--LoadAllFromDatabase-->
+						<?php
+							$YEARS = askSQL('SELECT DISTINCT RokAkademicki FROM Album');
+							if($YEARS != false)
+							{
+								while($year = mysqli_fetch_array($YEARS))
+								{
+									echo " <div class='yearContainer' year='".$year['RokAkademicki']."'>";
+									echo "<div class='yearHeader'>
+											<div class='yearHeaderInside'>
+												<div class='yearHeaderInfoContainer'>
+													<button class='yearHeaderYear'>".$year['RokAkademicki']."</button>
+													<button class='yearHeaderButton'>&nbsp;&nbsp;</button>
+												</div>
+											</div>
+										</div>";
+									$ALBUMS = askSQL("SELECT NazwaAlb, DataAlb, OpisAlb, LiczbaZdjec, a.Dodano,z.UrlZdj, a.Id_Alb
+														FROM Album a LEFT JOIN Zdjecie z ON a.Id_Alb= z.Id_Alb
+														WHERE RokAkademicki LIKE '".$year['RokAkademicki']."'
+															  AND z.czyOkladka LIKE 1
+														");
+									if($ALBUMS != false)
+									{
+										while($album = mysqli_fetch_array($ALBUMS))
+										{
+												echo " <div class='albumsContainer'>";
+												//get all the groups in albums
+												$GROUPS =askSQL("SELECT Id_Grp FROM GrupyWAlbumie WHERE Id_Alb LIKE ".$album['Id_Alb']);
+												$groupTag="";
+												if($GROUPS!=false){
+													while($group = mysqli_fetch_array($GROUPS))
+													{
+														$groupTag=$groupTag.strval($group['Id_Grp']).",";
+													}
+												}
+
+												$albumDesc=$album['OpisAlb'];
+												if(strlen($albumDesc)>120){$albumDesc=substr($albumDesc,0,120)."...";}
+												$albumTitleSmall=$album['NazwaAlb'];
+												if(strlen($albumTitleSmall)>20){$albumTitleSmall=substr($albumTitleSmall,0,20)."...";}
+													echo "
+															<div class='album'
+																 groupTag='".$groupTag."'
+																 id='alb".$album['NazwaAlb']."'>
+																<a href='/?albumID=".$album['Id_Alb']."'>
+																	<img src='".$album['UrlZdj']."'>
+																	<div class='imageOverlay'></div>
+																	<div class='albumInformationContainer'>
+																		<div class='shortAlbumInfo'>
+																			<div class='albumTitle'>".$album['NazwaAlb']."</div>
+																		</div>
+																		<div class='fullAlbumInfo'>
+																			<div class='albumTitleSmall'>".$albumTitleSmall."</div>
+																			<i>".$albumDesc."</i>
+																			<br><br>".$album['DataAlb']."
+																			<br>Zdjęć: ".$album['LiczbaZdjec']."
+																		</div>
+																	</div>
+																</a>
+															</div>";
+										}
+										echo "</div>";
+									}
+									//add spaces between consecutive years
+									echo "</div>";
+									echo "<div class='spaceBetweenYears'></div>";
+								}
+							}
+						?>
+				</div>
+			</div>
+
+	<!--Kontakt-->
+	<div id="kontakt" class="section">
+		<div class="container" id="contactContainer"  style="padding-bottom: 30px">
+				<div class="pageTitle" style="padding-top:30px;">Informacje kontaktowe</div>
+				<div class="contactContainer">
+					<!--MARGINES-->
+					<div class="marginTop"></div>
+					<div class="mapAndInfoContainer">
+						<!--MAPA-->
+						<div class="mapContainer">
+							<div class="mapInside">
+								<div class="mapOverlay"></div>
+								<div id="map"></div>
+							</div>
+						</div>
+						<!--INFORMACJE KONTAKTOWE-->
+						<div class="contactInfo">
+							<div class="contactIconAndText">
+								<div class="contactIcon">
+									<i class="fa fa-home"></i>
+									<div class="contactIconLabel">Adres</div>
+								</div>
+								<div class="contactText">ul. Moniki Cegłowskiej&nbsp;12/U1<br>61-461, Poznań </div>
+							</div>
+							<div class="marginSmall"></div>
+							<div class="contactIconAndText">
+								<div class="contactIcon">
+									<i class="fa fa-phone"></i>
+									<div class="contactIconLabel">Telefon</div>
+								</div>
+								<div class="contactText">+48 509 465 751</div>
+							</div>
+							<div class="marginSmall"></div>
+							<a  href="#contactContainer">Wyślij mail</a>
+							<div class="contactIconAndText" id="mail">
+								<div class="contactIcon">
+									<i class="fa fa-envelope"></i>
+									<div class="contactIconLabel">Email</div>
+								</div>
+								<div class="contactText">biuro@przedszkole197.pl</div>
+							</div>
+							<div class="marginSmall"></div>
+							<div class="contactIconAndText">
+								<div class="contactIcon">
+									<i class="fa fa-clock-o"></i>
+									<div class="contactIconLabel">Godziny Otwarcia</div>
+								</div>
+
+								<div class="contactText">
+									Pon. - 7.00-17.00 <br>
+									Wt. - 7.00-17.00<br>
+									Śrd. - 7.00-17.00 <br>
+									Czw. - 7.00-17.00 <br>
+									Pt. - 7.00-17.00 <br>
+									Sob. - Zamknięte <br>
+									Ndz. - Zamknięte</div>
+							</div>
+						</div>
+
+					</div>
+
+					<div class="contactFormContainer">
+						<div class="contactFormHeader">
+							<div class="contactFormTitle">Formularz kontaktowy</div>
+							<div class="contactFormSubTitle">skontatkuj się z nami nie opuszczając strony</div>
+						</div>
+						<!--MARGINES-->
+						<div class="contactFormFormContainer">
+							<!--FORMULARZ KONTATKOWY-->
+							<form action="/send_mail.php">
+								<div class="inputs">
+									<input type="text" id="firstname" name="firstname" placeholder="<imię>" required>
+									<input type="text" id="lastname" name="lastname" placeholder="<nazwisko>" required>
+									<input type="text" id="subject" name="subject" placeholder="Tytuł wiadomości" required>
+									<input type="submit" id="submitFull" value="WYŚLIJ">
+								</div>
+								<div class="contactMargin"></div>
+								<textarea id="content" name="content" placeholder="Wpisz swoją wiadomość..."></textarea>
+								<input type="submit" id="submitSmall" value="WYŚLIJ">
+							</form>
+							<div id="contactSuccess"><b>Wiadomość wysłana pomyślnie! Dziękujemy!</b></div>
+							<div id="contactFailure"><b>Błąd wysłania wiadomości! Spróbuj jeszcze raz!</b></div>
+						</div>
+					</div>
+
+
+
+
+				</div>
+		</div>
+	</div>
+		<!--Chosen news-->
+		<div id="aktualnosc"  class="section" >
+			<div class="container">
+				<div class="insideContainer">
+					<!--Populate with contents of chosen NEWS-->
+					<?php
+							//print title
+							$NEWSINFO = mysqli_fetch_array(askSQL("SELECT TytulAkt,TrescAkt, DataAkt  FROM Aktualnosc WHERE Id_Akt LIKE ".$_GET["newsID"]));
+							if($NEWSINFO!= false)
+							{
+							 echo "<div class='pageTitle'>".$NEWSINFO['TytulAkt']."</div>
+								   <div class='albumDate'>".$NEWSINFO['DataAkt']."</div>
+								   <div class='albumDescription'>".nl2br($NEWSINFO['TrescAkt'])."</div><br><br>
+								";
+							}
+					?>
+
+				</div>
+			</div>
+
+		</div>
+		
+		
+		
+		
+		
+		
+		<!--Album-->
+		<div id="album"  class="section" >
+			<div class="container" id="albumScroll">
+				<div class="insideContainer">
+					<!--Populate with pictures of chosen Album-->
+					<?php
+							//print title
+							$ALBUMINFO = mysqli_fetch_array(askSQL("SELECT NazwaAlb,OpisAlb, DataAlb  FROM Album WHERE Id_Alb LIKE ".$_GET["albumID"]));
+							if($ALBUMINFO!= false)
+							{
+							 echo "<div class='pageTitle'>".$ALBUMINFO['NazwaAlb']."</div>
+								   <div class='albumDate'>".$ALBUMINFO['DataAlb']."</div>
+								   <div class='albumDescription'>".$ALBUMINFO['OpisAlb']."</div><br><br>
+								";
+							}
+							//get all pictures from database
+							$PICS = askSQL("SELECT DISTINCT UrlZdj, OpisZdj, z.Dodano FROM Zdjecie z WHERE z.Id_Alb LIKE ".	$_GET["albumID"]);
+							if($PICS!= false)
+							{
+								echo "<div class='albumContainer'>";
+								while($pic = mysqli_fetch_array($PICS))
+								{
+								 echo "<div class='album'>
+										<img class='albumImage' src='".$pic['UrlZdj']."' alt='".iconv('iso-8859-2','utf-8',$pic['OpisZdj'])." [".$pic['Dodano']."]' >
+										</div>
+									   ";
+								}
+								echo "</div>";
+							}
+
+					?>
+					<!-- The Modal -->
+					<div id="myModal" class="modal">
+					  <span class="close" onclick="document.getElementById('myModal').style.display='none'">&times;</span>
+					  <img class="modal-content" id="img01">
+					  <div id="caption"></div>
+					</div>
+
+				</div>
+			</div>
+
+		</div>
+	</div>
+<footer>
+	<!-- FOOTER -->
+	<div class="bottomImgContainer">
+		<div class="children"></div>
+		<div class="footer" id="footer">
+			<a href="/admin" ><i class="fa fa-key"></i></a>
+		</div>
+	</div>
+</footer>
+
+</body>
+
+
+<!-- Ajax -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<!-- Script Album image zooms -->
+<script type="text/javascript" src="scripts/modal.js"></script>
+<!--Script that changes between tabs-->
+<script type="text/javascript" src="scripts/changeTabs.js"></script>
+<!--Script for applying filters to galery-->
+<script type="text/javascript" src="scripts/galeryFilter.js"></script>
+<script type="text/javascript" src="scripts/populateMinatures.js"></script>
+<!--Script for loading map fragment-->
+<script>
+	// Initialize and add the map
+	function initMap() {
+
+		// The location of Uluru
+		var uluru = {lat: 52.444386, lng: 16.871480};
+		// The map, centered at Uluru
+		var map = new google.maps.Map(
+				document.getElementById('map'), {zoom: 16, center: uluru});
+		// The marker, positioned at Uluru
+		var marker = new google.maps.Marker({position: uluru, map: map});
+	}
+</script>
+<script async defer
+		src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBCe4NhSr6ptU9ZTIpI4Oehan33FsFmUFI&callback=initMap">
+</script>
+<!--clouds floating-->
+<script src="scripts/clouds.js"></script>
+
+</html>
